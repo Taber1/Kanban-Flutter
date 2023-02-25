@@ -3,7 +3,9 @@ import 'package:csv/csv.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 
-void main() => runApp(MyApp());
+void main() {
+runApp(MyApp());
+} 
 
 class MyApp extends StatelessWidget {
   @override
@@ -53,7 +55,7 @@ class _KanbanBoardState extends State<KanbanBoard> {
   void _stopTask(Task task) {
     setState(() {
       task.isRunning = false;
-      final timeSpent =
+      final double timeSpent =
           DateTime.now().difference(task.startTime!).inSeconds / 60.0;
       task.timeSpent += timeSpent as Duration;
       _addToCsv(task.name, task.description, task.timeSpent as double,
@@ -123,7 +125,7 @@ class _KanbanBoardState extends State<KanbanBoard> {
     List<dynamic> newRow = [name, description, timeSpent, dateCompleted];
     csvData.add(newRow);
     final dir = await getApplicationDocumentsDirectory();
-    final path = dir.path + '/tasks.csv';
+    final path = '${dir.path}/tasks.csv';
     final file = File(path);
     String csv = const ListToCsvConverter().convert(csvData);
     file.writeAsString(csv);
